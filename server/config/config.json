@@ -1,0 +1,30 @@
+{
+  "development": {
+   "username": "istdev",
+   "password": "istdev11",
+   "database": "test_db",
+   "dialect" : "postgres",
+   "host" : "testdb4.cpbhl9aaxdjg.us-east-1.rds.amazonaws.com",
+   "port" : 5432,
+   "logging": "console.log",
+   "maxConcurrentQueries": 100
+  },
+
+  "test": {
+    "username": "ist-test",
+    "password": "ist-test",
+    "database": "ist-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "ist-prod",
+    "password": "ist-prod",
+    "database": "ist-prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
