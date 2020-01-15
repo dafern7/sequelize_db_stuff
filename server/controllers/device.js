@@ -5,11 +5,14 @@ module.exports = {
     create(req,res) {
         return Device
             .create({
-                title: req.body.title,
+                title:req.body.title,
+                password:req.body.password
             })
-            .then (device => res.status(201).send(device))
+            .then(device => res.status(200).send(device))
             .catch(error => res.status(400).send(error));
     },
+
+    
 
     //generate list of all devices available
     list(req,res) {
@@ -40,6 +43,7 @@ module.exports = {
         })
         .catch(error=> res.status(400).send(error));
     },
+
 
     update(req,res) {
         return Device

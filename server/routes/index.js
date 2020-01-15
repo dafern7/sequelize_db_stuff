@@ -11,5 +11,5 @@ module.exports = (app) => {
     app.post('/api/devices/:user_id/items', itemController.create);
     app.get('/api/devices/:user_id',deviceController.retrieve);
     app.put('/api/devices/:user_id', deviceController.update);
-    app.delete('/apip/devices/:user_id', deviceController.remove);
+    app.delete('/api/devices/:user_id', deviceController.remove);
 };
