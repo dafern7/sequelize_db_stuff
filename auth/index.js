@@ -14,16 +14,6 @@ router.get('/', (req,res) => {
 });
 
 
-function validateUser(user) {
-    const validEmail = typeof user.email == 'string' && 
-                        user.email.trim() != '';
-
-    const validPassword = typeof user.password == 'string' && 
-                            user.password.trim() != '' && 
-                            user.password.trim().length >= 6;
-    
-    return validEmail && validPassword
-}
 
 function requireAuth(req,res,next) {
     if (!req.headers || !req.headers.authorization) {
@@ -53,6 +43,9 @@ async function encryptPassword(password) {
     return hash
 };
     
+async function comparePassword(password, hash) {
+    return await bcrypt.compare(password,hash);
+};
 
 
 function generateJWT(user) {
@@ -65,7 +58,7 @@ router.post('/signup', async (req,res) => {
     const title = req.body.title
     const password = req.body.password
     
-    if (!title || (title.length <=4) ) {
+    if (!title || (title.length <= 4) ) {
         return res.status(400).send({auth: false, message: 'device name is required or too short'})
     }
 
@@ -90,9 +83,7 @@ router.post('/signup', async (req,res) => {
         password: password_hash
     });
  
-    
-
-
+    //generate token
 
     const jwt = generateJWT(newDevice)
 
@@ -100,6 +91,38 @@ router.post('/signup', async (req,res) => {
     
     },  
 );
+
+
+router.post('/login', async (req,res) => {
+    const title = req.body.title;
+    const password = req.body.password;
+
+    if (!title || (title.length <= 4)) {
+        return res.status(400).send({ auth:false, message: 'Device Name is too short or nonexistent'})
+    }
+
+    if(!password) {
+        return res.status(400).send({auth: false, message: 'Password required'})
+    }
+    
+    const device = await Device.findByPk(title);
+
+    console.log('ehlhalo')
+
+    if(!device) {
+        return res.status(401).send({auth:false,message:'device not found'})
+    }
+
+    const authValid = await comparePassword(password,device.password)
+
+    if(!authValid) {
+        res.status(401).send({auth:false, message:'wrong password'})
+    }
+
+    const jwt = generateJWT(device);
+    res.status(200).send({auth:true, token:jwt});
+})
+
 
 router.get('/verification', requireAuth, async(req,res) => {
     return res.status(200).send({auth:true, message:'Authenticated'});

@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Device = sequelize.define('Device', {
     title: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    primaryKey: true
     },
 
     password: {
