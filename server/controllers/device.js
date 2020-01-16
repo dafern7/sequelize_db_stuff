@@ -19,8 +19,7 @@ module.exports = {
         return Device
         .findAll({
             include: [{
-                model: Item,
-                as: 'Item',
+                model: Item
             }],
         })
         .then(device => res.status(200).send(device))
@@ -31,8 +30,7 @@ module.exports = {
         return Device
         .findByPk(req.params.user_id, {
             include: [{
-                model: Item,
-                as: 'Item',
+                model: Item
             }],
         })
         .then(device => {

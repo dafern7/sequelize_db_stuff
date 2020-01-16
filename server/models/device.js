@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Device.associate = (models) => {
     Device.hasMany(models.item, {
       foreignKey: 'user_id',
-      as: 'Item',
+
     });
   };
 

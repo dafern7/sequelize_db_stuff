@@ -41,11 +41,11 @@ module.exports = {
         type: Sequelize.DATE
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         onDelete: 'CASCADE',
         references: {
           model: 'Devices',
-          key: 'id',
+          key: 'title',
           as: 'user_id'
         }
       }

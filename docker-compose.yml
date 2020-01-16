@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    database:
+        image: postgres:11.5
+        volumes:
+            - ./data/database:/var/web/postgresql
+        environment: 
+            DATABASE_USER: "istdev"
+            DATABASE_PASSWORD: "istdev11"
+            ALLOW_IP_RANGE: "0.0.0.0/0"
+        ports:
+            - "2000:5432"
+    api:
+        build:
+            context: ./
+        volumes:
+            - ./:/server
+            - /server/node_modules
+        ports:
+            - "8000:8080"
+        command: "npm run start:dev"
+        depends_on:
+            - database

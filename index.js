@@ -3,6 +3,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 var auth = require('./auth');
 var cors = require('cors')
+const http = require('http');
 
 const app = express();
 
@@ -33,10 +34,17 @@ app.use(function(err,req,res,next) {
 
 })
 
-
-
 app.get('/', (req,res)=>
     res.status(200).send({message:'helloworld'})
 );
 
+const port = parseInt(process.env.PORT, 10) || 8080;
+app.set('port',port);
+
+const server = http.createServer(app);
+server.listen(port);
+
+
+
+console.log('running')
 module.exports = app;

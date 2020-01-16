@@ -13,8 +13,6 @@ router.get('/', (req,res) => {
     });
 });
 
-
-
 function requireAuth(req,res,next) {
     if (!req.headers || !req.headers.authorization) {
         return res.status(401).send({ message: 'No authorization headers.'});
@@ -106,8 +104,6 @@ router.post('/login', async (req,res) => {
     }
     
     const device = await Device.findByPk(title);
-
-    console.log('ehlhalo')
 
     if(!device) {
         return res.status(401).send({auth:false,message:'device not found'})
