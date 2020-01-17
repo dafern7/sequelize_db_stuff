@@ -1,3 +1,7 @@
+global.__require = function (file) {
+    return require(__dirname + '/' + file)
+  }
+
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');

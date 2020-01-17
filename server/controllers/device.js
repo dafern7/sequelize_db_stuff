@@ -1,5 +1,10 @@
-const Device = require('../models').Device
-const Item = require('../models').item
+const path = require('path');
+
+
+const Device = __require('server/models').Device
+const Item = __require('server/models').item
+
+
 
 module.exports = {
     create(req,res) {
