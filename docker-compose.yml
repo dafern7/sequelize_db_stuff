@@ -3,7 +3,7 @@ services:
     database:
         image: postgres:11.5
         volumes:
-            - ./data/database:/var/web/postgresql
+            - ./data/database:/var/web/postgres 
         environment: 
             DATABASE_USER: "istdev"
             DATABASE_PASSWORD: "istdev11"
@@ -21,3 +21,5 @@ services:
         command: "npm run start:dev"
         depends_on:
             - database
+volumes:
+    database: {}
